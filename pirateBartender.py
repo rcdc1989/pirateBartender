@@ -15,64 +15,60 @@
 
 import random #for use in assigning ingredients
 
-def add_questions (new_questions):
-    
-
 def get_input(questions):
-    #   """takes dict of questions returns dict of T/F based on used input"""  
+    """takes dict of questions returns dict of T/F based on used input"""  
     
-    drinkData = {}
-    userInput = ""
+    #GIVEN DATA:
+    #for simplicity, we populate our dictionaries here
+    #it might be better to create a class which helps with this
+    questions = {
+        "strong": "Do ye like yer drinks strong?",
+        "salty": "Do ye like it with a salty tang?",
+        "bitter": "Are ye a lubber who likes it bitter?",
+        "sweet": "Would ye like a bit of sweetness with yer poison?",
+        "fruity": "Are ye one for a fruity finish?",
+    }
+    
+    ingredients = {
+        "strong": ["glug of rum", "slug of whisky", "splash of gin"],
+        "salty": ["olive on a stick", "salt-dusted rim", "rasher of bacon"],
+        "bitter": ["shake of bitters", "splash of tonic", "twist of lemon peel"],
+        "sweet": ["sugar cube", "spoonful of honey", "spash of cola"],
+        "fruity": ["slice of orange", "dash of cassis", "cherry on top"],
+    }
+    
+    drink_data = {}
+    user_input = ""
     
     for entry in questions.keys(): #Loop through questions
         
         #continue asking until appropriate input is given
-        while userInput != 'yes' and userInput !='no': 
-            userInput = input(questions[entry] + " (enter yes or no) ") 
+        while user_input != 'yes' and user_input !='no': 
+            user_input = input(questions[entry] + " (enter yes or no) ") 
         
         #fill in the userInput dictionary with new information
-        if userInput == "yes":
-            drinkData[entry] = True
+        if user_input == "yes":
+            drink_data[entry] = True
             
         else:
-            drinkData[entry] = False
+            drink_data[entry] = False
             
-        userInput = "" #reset user input, so we don't skip the while loop
+        user_input = "" #reset user input, so we don't skip the while loop
 
-    return drinkData
+    return drink_data
     
-    
-def mixDrink(drinkData, ingredients):
+def mix_drink(drink_data, ingredients):
     # """takes dict of user data and dict of ingredients
     # returns a list of drink ingredients"""
     drink = []
     
-    for entry in drinkData.keys(): #loop through drink "characteristics"
+    for entry in drink_data.keys(): #loop through drink "characteristics"
         
-        if drinkData[entry] : #if that characteristic has "true" then...
+        if drink_data[entry] : #if that characteristic has "true" then...
             drink.append(random.choice(ingredients[entry]))  #we randomly select and ingredient from appropriate ingredients list
             
     return drink
     
-
-
-#GIVEN DATA:
-questions = {
-    "strong": "Do ye like yer drinks strong?",
-    "salty": "Do ye like it with a salty tang?",
-    "bitter": "Are ye a lubber who likes it bitter?",
-    "sweet": "Would ye like a bit of sweetness with yer poison?",
-    "fruity": "Are ye one for a fruity finish?",
-}
-
-ingredients = {
-    "strong": ["glug of rum", "slug of whisky", "splash of gin"],
-    "salty": ["olive on a stick", "salt-dusted rim", "rasher of bacon"],
-    "bitter": ["shake of bitters", "splash of tonic", "twist of lemon peel"],
-    "sweet": ["sugar cube", "spoonful of honey", "spash of cola"],
-    "fruity": ["slice of orange", "dash of cassis", "cherry on top"],
-}
-
 if __name__ == '__main__':
     
     choices = get_input(questions)
@@ -91,19 +87,3 @@ if __name__ == '__main__':
 # main()
 
 
-######this is some example code to protect our list of questions from inadvertent modification
-
-# inside same module pirateBartender.py
-# class Questions:
-#   def __init__(questions):
-#       self.questions = questions
-
-# def main(my_questions):
-#   choices = get_input(my_questions)
-#   drink = mix_drink(choices, ingredients)
-
-# -------- using pirateBartender: test_pirateBartender.py------
-# import pirateBartender
-# my_q = {}
-# my_questions = pirateBartender.Questions(my_q)
-# pirateBartender.main(my_questions)
