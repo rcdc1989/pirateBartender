@@ -1,41 +1,36 @@
-# Pirate Bartender BASIC (conforms only to most basic requirements)
+# Pirate Bartender: Challenges
 
 # Raphael Capon
-# 2017-05-18
+# 2017-05-22
 
 # a set of functions to gather user input
 # based on a set of questions
 # we then use a set of ingredients to output
 # a "drink" which assigns ingredients based on input
 
+#GIVEN DATA:
+#for simplicity, we populate our dictionaries here
+#it might be better to create a class which helps with this
+questions = {
+    "strong": "Do ye like yer drinks strong?",
+    "salty": "Do ye like it with a salty tang?",
+    "bitter": "Are ye a lubber who likes it bitter?",
+    "sweet": "Would ye like a bit of sweetness with yer poison?",
+    "fruity": "Are ye one for a fruity finish?",
+}
 
-##CHANGES:
-#replace camelcase with underscore notation
-
-
+ingredients = {
+    "strong": ["glug of rum", "slug of whisky", "splash of gin"],
+    "salty": ["olive on a stick", "salt-dusted rim", "rasher of bacon"],
+    "bitter": ["shake of bitters", "splash of tonic", "twist of lemon peel"],
+    "sweet": ["sugar cube", "spoonful of honey", "spash of cola"],
+    "fruity": ["slice of orange", "dash of cassis", "cherry on top"],
+}
+    
 import random #for use in assigning ingredients
 
 def get_input(questions):
     """takes dict of questions returns dict of T/F based on used input"""  
-    
-    #GIVEN DATA:
-    #for simplicity, we populate our dictionaries here
-    #it might be better to create a class which helps with this
-    questions = {
-        "strong": "Do ye like yer drinks strong?",
-        "salty": "Do ye like it with a salty tang?",
-        "bitter": "Are ye a lubber who likes it bitter?",
-        "sweet": "Would ye like a bit of sweetness with yer poison?",
-        "fruity": "Are ye one for a fruity finish?",
-    }
-    
-    ingredients = {
-        "strong": ["glug of rum", "slug of whisky", "splash of gin"],
-        "salty": ["olive on a stick", "salt-dusted rim", "rasher of bacon"],
-        "bitter": ["shake of bitters", "splash of tonic", "twist of lemon peel"],
-        "sweet": ["sugar cube", "spoonful of honey", "spash of cola"],
-        "fruity": ["slice of orange", "dash of cassis", "cherry on top"],
-    }
     
     drink_data = {}
     user_input = ""
