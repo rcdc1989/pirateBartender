@@ -29,6 +29,32 @@ ingredients = {
     
 import random #for use in assigning ingredients
 
+def name_drink(drink_data,drink):
+    """takes dict of T/F statements for "flavours" based on user input
+    as well as a number of drink ingredients and returns a funny (?)
+    drink name with the following structure:
+            Flavour Noun Verb "with" Ingredient    
+    """
+    print("entered name drink")
+    nouns = ["spelunker","assailant","hobnobber","barrel","ski-doo","cosmetics salesperson"]
+    verbs = ["hopper","mesmerizer","annoyer","patronizer","complainer","grabber","destroyer","evaporator"]
+    
+    
+    flavour = ""
+    noun = random.choice(nouns)
+    verb = random.choice(verbs)
+    ingredient = random.choice(drink)
+    
+    while flavour == "":
+    
+        flavour = random.choice(drink_data.keys())
+        
+        if drink_data[flavour] == False:
+            
+            flavour = ""
+            
+    return flavour + noun + verb + "with" + ingredient
+
 def get_input(questions):
     """takes dict of questions returns dict of T/F based on used input"""  
     
@@ -71,14 +97,17 @@ if __name__ == '__main__':
     print(drink)
     
 # this is the main function I used for testing:    
-# def main():
+def main():
     
-#     testInput = getInput(questionsDict)
-#     print (testInput)
+     test_input = get_input(questions)
+     print (test_input)
     
-#     testDrink = mixDrink(testInput,ingredientsDict)
-#     print(testDrink)
+     test_drink = mix_drink(test_input,ingredients)
+     print(test_drink)
+     
+     test_drink_name = name_drink(test_input,test_drink)
+     print(test_drink_name)
 
-# main()
+main()
 
 
