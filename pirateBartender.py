@@ -106,29 +106,72 @@ def name_drink(drink_data,drink):
 #execute when the program is run from the command line,    
 if __name__ == '__main__':
     
-    thirsty = True
+    bar_open = True
+    customers = {"Salty Bob":{"strong": False,
+                              "salty": True,
+                              "bitter": False,
+                              "sweet": False,
+                              "fruity": False}
+                }
+    inventory = {"glug of rum":2, "slug of whisky":2, "splash of gin":2,
+                 "olive on a stick":2, "salt-dusted rim":2, "rasher of bacon":2,
+                 "shake of bitters":2, "splash of tonic":2, "twist of lemon peel":2,
+                 "sugar cube":2, "spoonful of honey":2, "spash of cola":2,
+                 "slice of orange":2, "dash of cassis":2, "cherry on top":2,
+                 }
     
-    choices = get_input()
-    
-    #continue generating drinks with the same choices if
-    #user is "still thirsty"
-    while thirsty == True  :
-    
-        drink = mix_drink(choices)
-        drink_name = name_drink(choices,drink)
-        print("\n" + "arg! enjoy your \n" + '"' + drink_name +'"')
-        print("contains: " + str(drink) + "\n")
+    while bar_open == True: #keep looping until user decides to quit
         
-        #ask for and check user input before looping again
-        if input("are ye still thirsty? (yes or no) ") != "yes": 
-            
-            thirsty = False
-            print("Alrighty, don't get lost at sea now!")
+        #identify customer:
+        customer_name = input("Hi matey, what's yer name?")
+        if customer_name in customers:#check if customer is in database
+            #if customer is found, extract drink preference
+            print("Didn't you drink yer fill last time, " + customer_name + "?")
+            choices = customers[customer_name]
             
         else:
+            #if customer does not exist, we create a new entry and
+            #get user input
+            print("'ello poppet! \n")
+            choices = get_input()
+            customers[customer_name] = choices
+        
+        #continue generating drinks with the same choices if
+        #user is "still thirsty"
+        thirsty = True #reset "thirsty" from previous run-through
+        while thirsty == True  :
+        
+            drink = mix_drink(choices)
             
-            print("OK, coming right up!")
+            for ingredient in drink:
+                
+                if inventory[ingredient] > 0:
+                    
+                    inventory[ingredient] = inventory[ingredient] - 1 
+                
+                else:
+                    
+                    print("\nYARR! \n looks like we ran out of " + ingredient +
+                          " I'll go pillage some more\n...\n...\n")
+                    inventory[ingredient] = inventory[ingredient] + 2 
+                            
+            drink_name = name_drink(choices,drink)
+            print("arg! enjoy your \n" + '"' + drink_name +'"')
+            print("contains: " + str(drink) + "\n")
             
+            #ask for and check user input before looping again
+            if input("are ye still thirsty? (yes or no) ") != "yes": 
+                
+                thirsty = False
+                print("Alrighty, don't get lost at sea now!")
+                
+            else:
+                
+                print("OK, another coming right up!")
+                
+        if input("\n YAARR I can't read...is this bar still open?" +
+                 "(yes or no)") != "yes":
+            bar_open = False
             
 # this is the main function I used for initial testing:    
 # def main():
