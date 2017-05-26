@@ -3,34 +3,30 @@
 # Raphael Capon
 # 2017-05-26
 
-# a set of functions to gather user input
+# a set of functions to gather user input on taste preference
 # based on a set of questions
-# we then use a set of ingredients to output
-# a "drink" which assigns ingredients based on input
+# we then use a set of ingredients (which matches question list) to generate
+# a "drink" 
+
+# we also generate a drink name according to a predetermined format,
+# to do this, we use pre-populated lists of nouns and verbs as well as
+# existing ingredient preference information
 
 import random #for use in assigning ingredients
 
-#GIVEN DATA:
-#for simplicity, we populate our dictionaries here
-#it might be better to create a class which helps with this
-questions = {
-    "strong": "Do ye like yer drinks strong?",
-    "salty": "Do ye like it with a salty tang?",
-    "bitter": "Are ye a lubber who likes it bitter?",
-    "sweet": "Would ye like a bit of sweetness with yer poison?",
-    "fruity": "Are ye one for a fruity finish?",
-}
-
-ingredients = {
-    "strong": ["glug of rum", "slug of whisky", "splash of gin"],
-    "salty": ["olive on a stick", "salt-dusted rim", "rasher of bacon"],
-    "bitter": ["shake of bitters", "splash of tonic", "twist of lemon peel"],
-    "sweet": ["sugar cube", "spoonful of honey", "spash of cola"],
-    "fruity": ["slice of orange", "dash of cassis", "cherry on top"],
-}
+def get_input():
+    """takes dict of questions returns dict of T/F based on used input"""
     
-def get_input(questions):
-    """takes dict of questions returns dict of T/F based on used input"""  
+    #GIVEN DATA:
+    #for simplicity, we populate our dictionary here
+    #it might be better to create a class which helps with this
+    questions = {
+        "strong": "Do ye like yer drinks strong?",
+        "salty": "Do ye like it with a salty tang?",
+        "bitter": "Are ye a lubber who likes it bitter?",
+        "sweet": "Would ye like a bit of sweetness with yer poison?",
+        "fruity": "Are ye one for a fruity finish?",
+        }
     
     drink_data = {}
     user_input = ""
@@ -52,9 +48,21 @@ def get_input(questions):
 
     return drink_data
     
-def mix_drink(drink_data, ingredients):
+def mix_drink(drink_data):
     """takes dict of user data and dict of ingredients
     returns a list of drink ingredients"""
+   
+    #GIVEN DATA:
+    #for simplicity, we populate our dictionary here
+    #it might be better to create a class which helps with this 
+    ingredients = {
+    "strong": ["glug of rum", "slug of whisky", "splash of gin"],
+    "salty": ["olive on a stick", "salt-dusted rim", "rasher of bacon"],
+    "bitter": ["shake of bitters", "splash of tonic", "twist of lemon peel"],
+    "sweet": ["sugar cube", "spoonful of honey", "spash of cola"],
+    "fruity": ["slice of orange", "dash of cassis", "cherry on top"],
+    }
+    
     drink = []
     
     for entry in drink_data.keys(): #loop through drink "characteristics"
@@ -100,13 +108,13 @@ if __name__ == '__main__':
     
     thirsty = True
     
-    choices = get_input(questions)
+    choices = get_input()
     
     #continue generating drinks with the same choices if
     #user is "still thirsty"
     while thirsty == True  :
     
-        drink = mix_drink(choices,ingredients)
+        drink = mix_drink(choices)
         drink_name = name_drink(choices,drink)
         print("\n" + "arg! enjoy your \n" + '"' + drink_name +'"')
         print("contains: " + str(drink) + "\n")
