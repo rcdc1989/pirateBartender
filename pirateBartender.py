@@ -78,7 +78,6 @@ def name_drink(drink_data,drink):
              "patronizer","complainer","grabber",
              "destroyer","evaporator"]
     
-    
     # we assign a random selection of words to
     flavour = ""
     noun = random.choice(nouns)
@@ -93,27 +92,27 @@ def name_drink(drink_data,drink):
             
             flavour = ""
             
-    return flavour + " " + noun+ " " + verb + " with " + ingredient
+    return flavour + " " + noun+ " " + verb + " with a" + ingredient
     
+    
+#execute when the program is run from the command line,    
 if __name__ == '__main__':
     
     thirsty = True
     
+    choices = get_input(questions)
+    
     while thirsty == True  :
-        
-        choices = get_input(questions)
+    
         drink = mix_drink(choices,ingredients)
-        print(drink)
         drink_name = name_drink(choices,drink)
-        print("arg! enjoy your " + drink_name +"\n")
-        
-        if input("are ye thirsty? (yes or no) ") != "yes":
+        print("\n" + "arg! enjoy your " + drink_name)
+        print("contains: " + str(drink) + "\n")
+        if input("are ye still thirsty? (yes or no) ") != "yes":
             
             thirsty = False
             
-            
-    
-# this is the main function I used for testing:    
+# this is the main function I used for initial testing:    
 # def main():
     
 #      test_input = get_input(questions)
